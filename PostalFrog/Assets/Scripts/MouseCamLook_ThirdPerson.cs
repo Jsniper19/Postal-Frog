@@ -24,7 +24,7 @@ public class MouseCamLook_ThirdPerson : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        character = this.transform.parent.gameObject.transform.parent.gameObject;
+        character = this.transform.parent.gameObject;
         head = this.transform.parent.gameObject;
         initialAngle = character.transform.localEulerAngles.y;
 

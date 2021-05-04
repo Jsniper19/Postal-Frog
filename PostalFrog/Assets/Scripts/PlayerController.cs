@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float jumpForce = 300.0f;
-    public float speed = 5.0f;
+    public float jumpForce = 5.0f;
     public float maxGroundDistance = 1.5f;
     private bool isGrounded;
     public bool allowDoubleJump = false;
     private int amountOfJumps = 0;
+    public float forwardsJump = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -29,43 +29,17 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey("space"))
-        {
-			if (isGrounded == false)
-			{
-				transform.position = transform.position + (transform.forward * speed * Time.deltaTime);
-			}
-			
-		}
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.position = transform.position + (-transform.forward * speed * Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.position = transform.position + (transform.right * speed * Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.position = transform.position + (-transform.right * speed * Time.deltaTime);
-        }
-
         if (Input.GetKeyDown("space"))
         {
 
             if (isGrounded)
             {
-                // turn on the cursor
-                GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, jumpForce, 0.0f));
+                GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0.0f, jumpForce, forwardsJump), ForceMode.Impulse);
                 amountOfJumps = 1;
             }
             else if (amountOfJumps < 2 && allowDoubleJump)
             {
-                // turn on the cursor
-                GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, jumpForce, 0.0f));
+                GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0.0f, jumpForce, forwardsJump), ForceMode.Impulse);
                 amountOfJumps = 2;
             }
 
