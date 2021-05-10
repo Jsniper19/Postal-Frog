@@ -6,10 +6,12 @@ public class PlayerController : MonoBehaviour
 {
     public float jumpForce = 5.0f;
     public float maxGroundDistance = 1.5f;
+    public float radius = 0.05f;
     private bool isGrounded;
     public bool allowDoubleJump = false;
     private int amountOfJumps = 0;
     public float forwardsJump = 1.0f;
+    [SerializeField] LayerMask layerMask;
 
     public ChargeUp chargeUp;
     public Animator animator;
@@ -22,7 +24,9 @@ public class PlayerController : MonoBehaviour
 
     void LateUpdate()
     {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, maxGroundDistance);
+        var colliders = Physics.OverlapSphere(transform.position, radius, layerMask);
+        isGrounded = colliders.Length > 0;
+        //isGrounded = Physics.Raycast(transform.position, Vector3.down, maxGroundDistance, layerMask);
         if (isGrounded == true)
         {
             amountOfJumps = 0;
@@ -55,5 +59,10 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("Leap", true);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(transform.position, radius);
     }
 }
