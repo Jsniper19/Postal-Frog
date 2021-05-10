@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     private int amountOfJumps = 0;
     public float forwardsJump = 1.0f;
 
+    public ChargeUp chargeUp;
+    public Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,20 +32,28 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyUp("space"))
         {
-
+            
             if (isGrounded)
             {
-                GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0.0f, jumpForce, forwardsJump), ForceMode.Impulse);
+                GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0.0f, jumpForce * chargeUp._percentage, forwardsJump * chargeUp._percentage), ForceMode.Impulse);
                 amountOfJumps = 1;
             }
             else if (amountOfJumps < 2 && allowDoubleJump)
             {
-                GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0.0f, jumpForce, forwardsJump), ForceMode.Impulse);
+                GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0.0f, jumpForce * chargeUp._percentage, forwardsJump * chargeUp._percentage), ForceMode.Impulse);
                 amountOfJumps = 2;
             }
+        }
 
+        if (isGrounded)
+        {
+            animator.SetBool("Leap", false);
+        }
+        else 
+        {
+            animator.SetBool("Leap", true);
         }
     }
 }
