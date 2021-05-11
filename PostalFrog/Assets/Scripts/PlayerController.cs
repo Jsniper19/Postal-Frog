@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     private int amountOfJumps = 0;
     public float forwardsJump = 1.0f;
     [SerializeField] LayerMask layerMask;
-    public AudioSource LandSound;
 
     public ChargeUp chargeUp;
     public Animator animator;
@@ -21,7 +20,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        LandSound = GetComponent<AudioSource>();
     }
 
     void LateUpdate()
@@ -66,10 +64,5 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(transform.position, radius);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        LandSound.Play();
     }
 }
