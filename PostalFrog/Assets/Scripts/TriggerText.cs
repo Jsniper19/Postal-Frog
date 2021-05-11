@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class TriggerText : MonoBehaviour
 {
-    [SerializeField] Text Victory;
+    [SerializeField] Text Message;
     public AudioClip SoundToPlay;
     AudioSource soundSource;
+    [SerializeField] string text = "Victory";
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +17,12 @@ public class TriggerText : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Victory.text = "Post Delivered!";
+        Message.text = text;
         soundSource.PlayOneShot(SoundToPlay);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Message.text = "";
     }
 }
