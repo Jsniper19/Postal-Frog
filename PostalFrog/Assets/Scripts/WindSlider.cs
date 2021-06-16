@@ -1,36 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class WindSlider : MonoBehaviour
 {
-    public Slider slider;
-    public WindScriptTimer windScriptTimer;
-    public Image fill;
-    float offTime;
-    float onTime;
-    float totalTime = 0f;
+    [SerializeField] private Slider slider;
+    [SerializeField] private WindScriptTimer windScriptTimer;
+    [SerializeField] private Image fill;
+    [SerializeField] string text = "Wind Active";
+    [SerializeField] Text WindWarningText;
+    public float totalTime = 0f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        offTime = windScriptTimer.windDownTime;
-        onTime = windScriptTimer.windUpTime;
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        if (windScriptTimer.windActive == false)
+        //sets slider colour to white and makes slider rise to max value while high wind is inactive to show how long you have left
+        if (!windScriptTimer.windActive)
         {
             fill.color = Color.white;
-            totalTime += Time.deltaTime / offTime;
+            totalTime += Time.deltaTime / windScriptTimer.windDownTime;
             slider.value = Mathf.Lerp(0, 1, totalTime);
+            WindWarningText.text = "";
         }
-        else if (windScriptTimer.windActive == true)
+        //sets slider colour to red and makes slider fall to min value while wind is active
+        else if (windScriptTimer.windActive)
         {
-            totalTime -= Time.deltaTime / onTime;
+            totalTime -= Time.deltaTime / windScriptTimer.windUpTime;
             slider.value = Mathf.Lerp(0, 1, totalTime);
             fill.color = Color.red;
         }
