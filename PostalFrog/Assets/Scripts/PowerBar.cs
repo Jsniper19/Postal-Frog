@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PowerBar : MonoBehaviour
@@ -10,6 +8,6 @@ public class PowerBar : MonoBehaviour
 
     public void Update()
     {
-        slider.value = chargeUp._percentage;
+        slider.value = chargeUp.percentage;
     }
 }

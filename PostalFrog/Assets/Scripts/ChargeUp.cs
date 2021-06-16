@@ -1,41 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ChargeUp : MonoBehaviour
 {
-    [SerializeField] float _maxTime = 3f;
+    [SerializeField] float maxTime = 3f;
 
-    float _elapsedTime = 0f;
-    public float _percentage = 0;
+    float elapsedTime = 0f;
+    public float percentage = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        _elapsedTime = 0;
+        elapsedTime = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            _percentage = _elapsedTime / _maxTime;
-            _elapsedTime = 0;
-        }
-
         if (Input.GetKey(KeyCode.Space))
         {
-            if (_elapsedTime >= _maxTime)
+            if (elapsedTime >= maxTime)
             {
-                _elapsedTime = _maxTime;
+                elapsedTime = maxTime;
             }
             else
             {
-                _elapsedTime += Time.deltaTime;
+                elapsedTime += Time.deltaTime;
             }
         }
 
-        _percentage = _elapsedTime / _maxTime;
+        percentage = elapsedTime / maxTime;
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            elapsedTime = 0;
+        }
     }
 }

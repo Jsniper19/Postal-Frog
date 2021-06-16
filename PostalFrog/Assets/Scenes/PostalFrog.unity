@@ -279,10 +279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90808b0f152c04818b1c2ca62e1dbb07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 5
-  smoothing: 2
-  character: {fileID: 6785735608537898583}
-  head: {fileID: 6785735608537898583}
 --- !u!81 &189078646
 AudioListener:
   m_ObjectHideFlags: 0
@@ -27911,7 +27907,6 @@ GameObject:
   - component: {fileID: 6785735608537898585}
   - component: {fileID: 6785735608537898584}
   - component: {fileID: 6785735608537898588}
-  - component: {fileID: 6785735608537898587}
   - component: {fileID: 6785735608537898589}
   - component: {fileID: 6785735608537898590}
   m_Layer: 0
@@ -27936,14 +27931,15 @@ MonoBehaviour:
   jumpForce: 3
   maxGroundDistance: 0.001
   radius: 0.032
-  allowDoubleJump: 0
   forwardsJump: 1.1
   layerMask:
     serializedVersion: 2
     m_Bits: 512
   LandSound: {fileID: 6785735608537898590}
   chargeUp: {fileID: 6785735608537898588}
-  animator: {fileID: 6785735608537898587}
+  animator: {fileID: 0}
+  bodyIdle: {fileID: 8595293745120002150}
+  bodyLeap: {fileID: 7319254826313422499}
 --- !u!65 &6785735608537898585
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27973,25 +27969,6 @@ Rigidbody:
   m_Interpolate: 2
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!95 &6785735608537898587
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6785735608537898583}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9e93983b05cb1854a9d72ca651b63e29, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &6785735608537898588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28004,8 +27981,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a44afc4f2a05117418bb4a1156ed8ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxTime: 0.4
-  _percentage: 0
+  maxTime: 0.3
+  percentage: 0
 --- !u!114 &6785735608537898589
 MonoBehaviour:
   m_ObjectHideFlags: 0

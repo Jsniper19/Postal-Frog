@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,14 +6,15 @@ public class PlayerController : MonoBehaviour
     public float maxGroundDistance = 1.5f;
     public float radius = 0.05f;
     private bool isGrounded;
-    public bool allowDoubleJump = false;
-    private int amountOfJumps = 0;
+    private int amountOfJumps;
     public float forwardsJump = 1.0f;
     [SerializeField] LayerMask layerMask;
     public AudioSource LandSound;
 
     public ChargeUp chargeUp;
     public Animator animator;
+    public GameObject bodyIdle;
+    public GameObject bodyLeap;
 
     // Start is called before the first frame update
     void Start()
@@ -43,23 +42,20 @@ public class PlayerController : MonoBehaviour
             
             if (isGrounded)
             {
-                GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0.0f, jumpForce * chargeUp._percentage, forwardsJump * chargeUp._percentage), ForceMode.Impulse);
+                GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0.0f, jumpForce * chargeUp.percentage, forwardsJump * chargeUp.percentage), ForceMode.Impulse);
                 amountOfJumps = 1;
-            }
-            else if (amountOfJumps < 2 && allowDoubleJump)
-            {
-                GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0.0f, jumpForce * chargeUp._percentage, forwardsJump * chargeUp._percentage), ForceMode.Impulse);
-                amountOfJumps = 2;
             }
         }
 
         if (isGrounded)
         {
-            animator.SetBool("Leap", false);
+            bodyIdle.SetActive(true);
+            bodyLeap.SetActive(false);
         }
         else 
         {
-            animator.SetBool("Leap", true);
+            bodyIdle.SetActive(false);
+            bodyLeap.SetActive(true);
         }
     }
 

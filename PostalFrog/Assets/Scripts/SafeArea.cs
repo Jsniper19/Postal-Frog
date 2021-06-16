@@ -1,18 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-
+﻿using UnityEngine;
 
 public class SafeArea : MonoBehaviour
 {
-    public WindScript windScript;
-
+    [SerializeField] private WindScript windScript;
+    //tells whether the player is in a safe zone
     private void OnTriggerEnter(Collider other)
-    {
-        windScript.safeArea = true;
-    }
-    private void OnTriggerStay(Collider other)
     {
         windScript.safeArea = true;
     }

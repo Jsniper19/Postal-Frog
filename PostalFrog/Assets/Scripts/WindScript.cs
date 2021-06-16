@@ -1,21 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 
 public class WindScript : MonoBehaviour
 {
-    public GameObject player;
-    public float windForce = 0.04f;
-    public WindScriptTimer windScriptTimer;
+    [SerializeField] private GameObject player;
+    [SerializeField] private float windForce = 0.04f;
+    [SerializeField] private WindScriptTimer windScriptTimer;
     public bool safeArea;
 
+    //checks whether player is in the set area, then if wind is active, then if the player is in the safe zone
     void OnTriggerStay(Collider other)
     {
-        if (windScriptTimer.windActive == true)
+        if (windScriptTimer.windActive)
         {
-            if (safeArea == false)
+            if (!safeArea)
             {
+                //launches player to the side
                 player.GetComponent<Rigidbody>().AddForce(0, 0, -windForce, ForceMode.VelocityChange);
             }
         }
