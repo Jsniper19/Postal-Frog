@@ -26,8 +26,6 @@ public class WindSlider : MonoBehaviour
             totalTime -= Time.deltaTime / windScriptTimer.windUpTime;
             slider.value = Mathf.Lerp(0, 1, totalTime);
             fill.color = Color.red;
-            WindWarningText.text = text;
-
         }
     }
 }

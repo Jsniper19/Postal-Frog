@@ -7,7 +7,8 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] Transform _startingTransform;
     [SerializeField] LayerMask _layerMask;
     [SerializeField] float _distance = 100f;
-    public Text deathCount;
+    [SerializeField] private Text deathCount;
+    [SerializeField] private GameObject Panel;
     public int deaths;
 
     Camera _mainCam;
@@ -30,6 +31,20 @@ public class PlayerDeath : MonoBehaviour
             transform.rotation = _startingTransform.rotation;
             deaths = deaths + 1;
             deathCount.text = "Death Count: " + deaths;
+        }
+
+        if (transform.position.y <= 0)
+        {
+            transform.position = _startingTransform.position;
+            _rb.velocity = Vector3.zero;
+            transform.rotation = _startingTransform.rotation;
+            deaths = deaths + 1;
+            deathCount.text = "Death Count: " + deaths;
+        }
+
+        if (deaths >= 1)
+        {
+            Panel.SetActive(true);
         }
     }
 
