@@ -9,28 +9,25 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] float _distance = 100f;
     [SerializeField] private Text deathCount;
     [SerializeField] private GameObject Panel;
-    public int deaths;
+    public DeathManager DM;
 
-    Camera _mainCam;
     Rigidbody _rb;
 
     private void Awake()
     {
-        _mainCam = Camera.main;
         _rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
+        DM = GameObject.Find("DeathManager").GetComponent<DeathManager>();
         var ray = new Ray(transform.position, -Vector3.up);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, _distance, _layerMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, _distance, _layerMask))
         {
             transform.position = _startingTransform.position;
             _rb.velocity = Vector3.zero;
             transform.rotation = _startingTransform.rotation;
-            deaths = deaths + 1;
-            deathCount.text = "Death Count: " + deaths;
+            DM.deaths++;
         }
 
         if (transform.position.y <= 0)
@@ -38,13 +35,13 @@ public class PlayerDeath : MonoBehaviour
             transform.position = _startingTransform.position;
             _rb.velocity = Vector3.zero;
             transform.rotation = _startingTransform.rotation;
-            deaths = deaths + 1;
-            deathCount.text = "Death Count: " + deaths;
+            DM.deaths++;
         }
 
-        if (deaths >= 1)
+        if (DM.deaths >= 1)
         {
             Panel.SetActive(true);
+            deathCount.text = "Death Count: " + DM.deaths;
         }
     }
 

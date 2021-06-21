@@ -2,25 +2,26 @@
 
 public class PlayerController : MonoBehaviour
 {
-    public float jumpForce = 5.0f;
+    [SerializeField] private float jumpForce = 5.0f;
     public float maxGroundDistance = 1.5f;
-    public float radius = 0.05f;
+    [SerializeField] private float radius = 0.05f;
     private bool isGrounded;
     private int amountOfJumps;
-    public float forwardsJump = 1.0f;
+    [SerializeField] private float forwardsJump = 1.0f;
     [SerializeField] LayerMask layerMask;
-    public AudioSource LandSound;
+    [SerializeField] private AudioSource LandSound;
 
-    public ChargeUp chargeUp;
-    public Animator animator;
-    public GameObject bodyIdle;
-    public GameObject bodyLeap;
+    [SerializeField] private ChargeUp chargeUp;
+    [SerializeField] private GameObject bodyIdle;
+    [SerializeField] private GameObject bodyLeap;
+    public bool PLAY;
 
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         LandSound = GetComponent<AudioSource>();
+        PLAY = true;
     }
 
     void LateUpdate()
@@ -37,25 +38,28 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp("space"))
+        if (PLAY)
         {
-            
+            if (Input.GetKeyUp("space"))
+            {
+
+                if (isGrounded)
+                {
+                    GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0.0f, jumpForce * chargeUp.percentage, forwardsJump * chargeUp.percentage), ForceMode.Impulse);
+                    amountOfJumps = 1;
+                }
+            }
+
             if (isGrounded)
             {
-                GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0.0f, jumpForce * chargeUp.percentage, forwardsJump * chargeUp.percentage), ForceMode.Impulse);
-                amountOfJumps = 1;
+                bodyIdle.SetActive(true);
+                bodyLeap.SetActive(false);
             }
-        }
-
-        if (isGrounded)
-        {
-            bodyIdle.SetActive(true);
-            bodyLeap.SetActive(false);
-        }
-        else 
-        {
-            bodyIdle.SetActive(false);
-            bodyLeap.SetActive(true);
+            else
+            {
+                bodyIdle.SetActive(false);
+                bodyLeap.SetActive(true);
+            }
         }
     }
 
